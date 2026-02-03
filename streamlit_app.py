@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # -----------------------------------------------------------------------------
-# 1. 디자인 설정 (모바일 최적화 + 드롭다운 버그 수정)
+# 1. 디자인 설정 (드롭다운 배경 '핵폭탄급' 수정 포함)
 # -----------------------------------------------------------------------------
 st.set_page_config(page_title="철근 전문가", page_icon="🏗️", layout="centered")
 
@@ -17,7 +17,7 @@ hide_st_style = """
                 padding-right: 1rem;
             }
             
-            /* 기본 텍스트 강제 백색 */
+            /* 모든 글씨 강제 백색 */
             html, body, [class*="css"], div, span, p, label, h1, h2, h3, h4, h5, h6 {
                 font-family: 'Noto Sans KR', sans-serif;
                 color: #ffffff !important;
@@ -33,19 +33,26 @@ hide_st_style = """
                 border: 1px solid #555555;
             }
 
-            /* ★★★ [긴급수정] 드롭다운 메뉴 리스트 배경색 변경 ★★★ */
+            /* ★★★ [긴급 조치] 드롭다운 팝업창 전체 강제 타격 ★★★ */
+            /* 팝업 컨테이너, 리스트, 아이템 모두 진회색으로 강제 통일 */
+            div[data-baseweb="popover"],
+            div[data-baseweb="popover"] > div,
+            div[data-baseweb="menu"],
             ul[data-baseweb="menu"] {
-                background-color: #333333 !important; /* 리스트 배경을 어둡게 */
+                background-color: #333333 !important;
             }
-            /* 드롭다운 항목 각각의 스타일 */
+            
+            /* 리스트 내부 항목 스타일 */
             li[data-baseweb="menu-item"] {
-                 background-color: #333333 !important; /* 항목 배경 */
-                 color: #ffffff !important; /* 글씨 흰색 */
+                background-color: #333333 !important;
+                color: #ffffff !important; /* 글씨 흰색 */
             }
-            /* 드롭다운 항목 마우스 올렸을 때 (Hover) & 선택된 항목 */
-            li[aria-selected="true"], li[data-baseweb="menu-item"]:hover {
-                background-color: #0085ff !important; /* 파란색 하이라이트 */
-                color: white !important;
+            
+            /* 마우스 올렸을 때(Hover) & 선택된 항목 */
+            li[data-baseweb="menu-item"]:hover,
+            li[aria-selected="true"] {
+                background-color: #0085ff !important; /* 파란색 */
+                color: #ffffff !important;
             }
             
             /* 탭 스타일 */
