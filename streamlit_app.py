@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # -----------------------------------------------------------------------------
-# 1. 디자인 설정 (드롭다운 배경 '핵폭탄급' 수정 포함)
+# 1. 디자인 설정 (흰 배경 + 검은 글씨 전략 적용)
 # -----------------------------------------------------------------------------
 st.set_page_config(page_title="철근 전문가", page_icon="🏗️", layout="centered")
 
@@ -17,7 +17,7 @@ hide_st_style = """
                 padding-right: 1rem;
             }
             
-            /* 모든 글씨 강제 백색 */
+            /* [기본] 앱 전체 글씨는 흰색 (다크모드 유지) */
             html, body, [class*="css"], div, span, p, label, h1, h2, h3, h4, h5, h6 {
                 font-family: 'Noto Sans KR', sans-serif;
                 color: #ffffff !important;
@@ -33,25 +33,26 @@ hide_st_style = """
                 border: 1px solid #555555;
             }
 
-            /* ★★★ [긴급 조치] 드롭다운 팝업창 전체 강제 타격 ★★★ */
-            /* 팝업 컨테이너, 리스트, 아이템 모두 진회색으로 강제 통일 */
+            /* ★★★ [해결사] 드롭다운 메뉴 스타일 (흰 배경 + 검은 글씨) ★★★ */
+            
+            /* 1. 팝업창 껍데기 & 리스트 배경 -> 무조건 흰색 */
             div[data-baseweb="popover"],
-            div[data-baseweb="popover"] > div,
             div[data-baseweb="menu"],
             ul[data-baseweb="menu"] {
-                background-color: #333333 !important;
+                background-color: #ffffff !important;
             }
             
-            /* 리스트 내부 항목 스타일 */
+            /* 2. 리스트 내부 항목 글씨 -> 무조건 검은색 (그래야 보임!) */
             li[data-baseweb="menu-item"] {
-                background-color: #333333 !important;
-                color: #ffffff !important; /* 글씨 흰색 */
+                background-color: #ffffff !important;
+                color: #000000 !important; /* 검은색 글씨 */
+                font-weight: bold;
             }
             
-            /* 마우스 올렸을 때(Hover) & 선택된 항목 */
+            /* 3. 마우스 올렸을 때(Hover) -> 파란 배경 + 흰 글씨 */
             li[data-baseweb="menu-item"]:hover,
             li[aria-selected="true"] {
-                background-color: #0085ff !important; /* 파란색 */
+                background-color: #0085ff !important;
                 color: #ffffff !important;
             }
             
@@ -63,7 +64,7 @@ hide_st_style = """
                 background-color: #333333;
                 border-radius: 4px;
                 padding: 10px 20px;
-                color: #cccccc;
+                color: #cccccc !important; /* 탭 글씨는 회색 */
             }
             .stTabs [aria-selected="true"] {
                 background-color: #0085ff !important;
