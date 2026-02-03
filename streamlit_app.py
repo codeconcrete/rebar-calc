@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # -----------------------------------------------------------------------------
-# 1. 디자인 설정 (흰 배경 + 검은 글씨 전략 적용)
+# 1. 디자인 설정 (드롭다운 가독성 문제 최종 해결)
 # -----------------------------------------------------------------------------
 st.set_page_config(page_title="철근 전문가", page_icon="🏗️", layout="centered")
 
@@ -33,25 +33,31 @@ hide_st_style = """
                 border: 1px solid #555555;
             }
 
-            /* ★★★ [해결사] 드롭다운 메뉴 스타일 (흰 배경 + 검은 글씨) ★★★ */
+            /* ★★★ [반납 각오하고 고친 코드] 드롭다운 메뉴 스타일 ★★★ */
             
-            /* 1. 팝업창 껍데기 & 리스트 배경 -> 무조건 흰색 */
+            /* 1. 팝업창(Popover) 껍데기 배경을 흰색으로 강제 */
             div[data-baseweb="popover"],
             div[data-baseweb="menu"],
             ul[data-baseweb="menu"] {
                 background-color: #ffffff !important;
             }
             
-            /* 2. 리스트 내부 항목 글씨 -> 무조건 검은색 (그래야 보임!) */
-            li[data-baseweb="menu-item"] {
-                background-color: #ffffff !important;
-                color: #000000 !important; /* 검은색 글씨 */
-                font-weight: bold;
+            /* 2. [핵심] 팝업창 내부의 '모든' 하위 요소(*) 글자색을 검은색으로 강제! */
+            /* 전역 설정(흰색)을 덮어쓰기 위해 div, span까지 콕 집어서 검게 만듭니다. */
+            div[data-baseweb="popover"] div,
+            div[data-baseweb="popover"] span,
+            div[data-baseweb="popover"] li {
+                color: #000000 !important; 
+                background-color: transparent !important; /* 배경색 충돌 방지 */
             }
             
-            /* 3. 마우스 올렸을 때(Hover) -> 파란 배경 + 흰 글씨 */
+            /* 3. 마우스 올렸을 때(Hover) & 선택된 항목 (파란 배경 + 흰 글씨) */
             li[data-baseweb="menu-item"]:hover,
-            li[aria-selected="true"] {
+            li[data-baseweb="menu-item"]:hover div, /* 내부 div도 흰색으로 */
+            li[data-baseweb="menu-item"]:hover span,
+            li[aria-selected="true"],
+            li[aria-selected="true"] div,
+            li[aria-selected="true"] span {
                 background-color: #0085ff !important;
                 color: #ffffff !important;
             }
@@ -64,7 +70,7 @@ hide_st_style = """
                 background-color: #333333;
                 border-radius: 4px;
                 padding: 10px 20px;
-                color: #cccccc !important; /* 탭 글씨는 회색 */
+                color: #cccccc !important;
             }
             .stTabs [aria-selected="true"] {
                 background-color: #0085ff !important;
